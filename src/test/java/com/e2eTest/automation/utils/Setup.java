@@ -3,7 +3,6 @@ package com.e2eTest.automation.utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Platform;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -17,8 +16,6 @@ import io.cucumber.java.Scenario;
 public class Setup {
 
 	private static WebDriver driver;
-
-	// TO HAVE IN CONSOLE NAME OF TEST CASE
 	private static final Logger LOGGER = (Logger) LogManager.getLogger(Setup.class.getName());
 
 	/**
@@ -31,19 +28,14 @@ public class Setup {
 	 */
 	@Before
 	public void setWebDriver(Scenario scenario) {
-		
-		
-		// To get name of scenario from cucumber scenario is TEST CASE in cucumber
-		LOGGER.info("Scenario:" + scenario.getName() + "- started");
 
+		LOGGER.info("Scenario: " + scenario.getName() + "- started");	
 		String browser = System.getProperty("browser");
-
 		if (browser == null) {
 			browser = "chrome";
-
 		}
 
-		switch ("browser") {
+		switch (browser) {
 		case "chrome":
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("['start-maximized']");
@@ -62,16 +54,19 @@ public class Setup {
 			break;
 
 		default:
-			throw new IllegalArgumentException("Browser \"" + browser + "\" is not supported");
+			throw new IllegalArgumentException("Browser \"" + browser + "\" is not supported.");
 
 		}
-
 	}
 
-	/* GETTER */
-
-	public static webDriver getDriver() {
+	/ GETTER /
+	public static WebDriver getDriver() {
 		return driver;
+
 	}
 
+
+public static Logger getLogger() {
+	return LOGGER; 
+}
 }
